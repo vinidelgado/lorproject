@@ -55,6 +55,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature-leaderboards"))
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.composeDefault)
     implementation(Dependencies.composeTooling)

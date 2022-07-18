@@ -3,12 +3,10 @@ package com.vini.feature_leaderboards
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,14 +23,15 @@ import com.vini.core_model.PlayerData
 @Composable
 fun LeaderboardPlayerItem(player: PlayerData) {
     Card(
-        shape = RoundedCornerShape(4.dp),
+        shape = RoundedCornerShape(6.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFF201E20))
     ) {
         Row(
             modifier = Modifier
                 .height(80.dp)
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
                 rememberVectorPainter(image = Icons.Rounded.AccountCircle),
@@ -44,16 +43,17 @@ fun LeaderboardPlayerItem(player: PlayerData) {
             Column(modifier = Modifier.padding(horizontal = 16.dp)) {
                 Text(
                     player.name,
+                    fontWeight = FontWeight.W500,
                     color = Color(0xFFF4F2F3),
-                    fontWeight = FontWeight.Medium,
-//                style = typography.body2,
+                    style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Start,
                 )
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     "${player.lp} PDL",
-                    color = Color(0xFFD4914E),
-                    fontWeight = FontWeight.Bold,
-//                style = typography.body1,
+//                    color = Color(0xFFD4914E),
+                    color = Color(0xFF676B6F),
+                    style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.Center,
                 )
             }

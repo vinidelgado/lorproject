@@ -28,7 +28,7 @@ fun LeaderboardsScreen(
         topBar = {
 //            LeaderboardsTitle()
         },
-        containerColor = Color.Transparent,
+        containerColor = Color(0xFF141214),
         modifier = modifier.fillMaxSize()
     ){ innerPadding ->
         Text("Teste",modifier = modifier
@@ -50,59 +50,13 @@ fun LeaderboardsScreen(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun LeaderboardPlayers(player: PlayerData) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 0.dp),
-        shape = RoundedCornerShape(6.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF2E2651)
-        )
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = player.rank.toString(),
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(vertical = 12.dp),
-                color = Color(0xFFAAABCA),
-                fontWeight = FontWeight.Bold,
-//                style = typography.body1,
-                textAlign = TextAlign.Center,
-            )
-            Text(
-                player.name,
-                modifier = Modifier
-                    .weight(3f),
-                color = Color(0xFFFFFFFF),
-                fontWeight = FontWeight.Medium,
-//                style = typography.body2,
-                textAlign = TextAlign.Start,
-            )
-            Text(
-                player.lp.toString(),
-                modifier = Modifier
-                    .weight(1f),
-                color = Color(0xFF8890B5),
-                fontWeight = FontWeight.Bold,
-//                style = typography.body1,
-                textAlign = TextAlign.Center,
-            )
-        }
-    }
-}
 
 @Composable
 fun LeaderboardsContent(viewModel: LeaderboardsViewModel = hiltViewModel()) {
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
-    Column(modifier = Modifier.background(Color(0xFF19133D)).padding(vertical = 24.dp)) {
+    Column(modifier = Modifier
+        .padding(vertical = 24.dp)) {
 
 //        if (viewModel.state.isLoading) {
 //            CircularProgressIndicator()
@@ -111,12 +65,11 @@ fun LeaderboardsContent(viewModel: LeaderboardsViewModel = hiltViewModel()) {
         viewModel.state.playersData.let { playerList ->
             LazyColumn(
                 state = listState,
-                contentPadding = PaddingValues(all = 4.dp),
+                contentPadding = PaddingValues(all = 12.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(playerList.size) { index ->
-                    LeaderboardPlayers(playerList[index])
-//                    Text(playerList[index].name, color = Color.White)
+                    LeaderboardPlayerItem(player = playerList[index])
                 }
             }
         }

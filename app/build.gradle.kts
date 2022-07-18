@@ -5,8 +5,8 @@ import com.vini.lorproject.buildsrc.Versions
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-//    kotlin("kapt")
-//    id("dagger.hilt.android.plugin")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -65,26 +65,8 @@ dependencies {
     implementation(Dependencies.appCompat)
     implementation(Dependencies.material)
     implementation(Dependencies.material3)
-//    implementation(Dependencies.daggerHilt)
-//    kapt(Dependencies.daggerHiltCompiler)
+    implementation(Dependencies.daggerHilt)
+    kapt(Dependencies.daggerHiltCompiler)
 //    implementation(Dependencies.daggerHiltLifecycle)
-//    implementation(Dependencies.hiltNavigationCompose)
-//    implementation(Dependencies.retrofit)
-//    implementation(Dependencies.retrofitMoshiConverter)
-//    implementation(Dependencies.okHttp)
-//    implementation(Dependencies.okHttpLoggingInterceptor)
-//
-//    implementation(Dependencies.roomRuntime)
-//    implementation(Dependencies.roomKtx)
-//    kapt(Dependencies.roomCompiler)
-//
-//    implementation(Dependencies.paging3)
-//    implementation(Dependencies.windowSize)
-//
-//    testImplementation(Dependencies.junit4)
-//    androidTestImplementation(Dependencies.junitExtensions)
-//    androidTestImplementation(Dependencies.espressoCore)
-//    androidTestImplementation(Dependencies.composeUiTest)
-//    debugImplementation(Dependencies.composeTooling)
-//    debugImplementation(Dependencies.testManifest)
+    implementation(Dependencies.hiltNavigationCompose)
 }

@@ -59,7 +59,7 @@ dependencies {
     implementation(Dependencies.material3)
     implementation(Dependencies.daggerHilt)
     kapt(Dependencies.daggerHiltCompiler)
-    implementation(Dependencies.daggerHiltLifecycle)
+//    implementation(Dependencies.daggerHiltLifecycle)
     implementation(Dependencies.hiltNavigationCompose)
     implementation(Dependencies.retrofit)
     implementation(Dependencies.retrofitMoshiConverter)

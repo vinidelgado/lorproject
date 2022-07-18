@@ -25,6 +25,7 @@ object AppModule {
         "https://americas.api.riotgames.com/"
     }
 
+
     @Provides
     fun headerInterceptor(): Interceptor {
         return Interceptor { chain ->

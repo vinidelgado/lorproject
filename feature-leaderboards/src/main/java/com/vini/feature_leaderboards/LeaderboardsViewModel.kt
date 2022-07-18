@@ -9,36 +9,34 @@ import com.vini.core_data.model.Resource
 import com.vini.core_data.repository.LeaderboardsRepository
 import com.vini.core_model.PlayerData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-@OptIn(InternalCoroutinesApi::class)
 class LeaderboardsViewModel @Inject constructor(
     private val leaderRepository: LeaderboardsRepository,
 ) : ViewModel() {
-
     var state by mutableStateOf(LorAmericasLeaderboards())
-        private set
+
+    init {
+        loadLeaderboardStream()
+    }
 
     fun loadLeaderboardStream() {
         viewModelScope.launch {
             leaderRepository.getLeaderboards().collectLatest { result ->
-                when(result) {
+                when (result) {
                     is Resource.Success -> {
                         result.data?.let { data ->
                             state = state.copy(
                                 playersData = data,
-                                isLoading = false
                             )
                         }
                     }
                     is Resource.Error -> {
                         state = state.copy(
                             error = result.message,
-                            isLoading = false
                         )
                     }
                     is Resource.Loading -> {

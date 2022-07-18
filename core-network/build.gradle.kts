@@ -42,7 +42,7 @@ dependencies {
     implementation(project(":core-model"))
     kapt(Dependencies.daggerHiltCompiler)
     implementation(Dependencies.daggerHilt)
-    implementation(Dependencies.daggerHiltLifecycle)
+//    implementation(Dependencies.daggerHiltLifecycle)
     implementation(Dependencies.hiltNavigationCompose)
     implementation(Dependencies.retrofit)
     implementation(Dependencies.retrofitMoshiConverter)

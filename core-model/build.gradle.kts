@@ -4,6 +4,8 @@ import com.vini.lorproject.buildsrc.Dependencies
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("dagger.hilt.android.plugin")
+    kotlin("kapt")
 }
 
 android {
@@ -37,4 +39,13 @@ android {
 
 dependencies {
     implementation(Dependencies.retrofitMoshiConverter)
+    implementation(Dependencies.retrofitMoshiConverter)
+
+    implementation(Dependencies.roomKtx)
+    kapt(Dependencies.roomCompiler)
+
+    kapt(Dependencies.daggerHiltCompiler)
+    implementation(Dependencies.daggerHilt)
+    implementation(Dependencies.hiltNavigationCompose)
+    implementation(Dependencies.retrofit)
 }

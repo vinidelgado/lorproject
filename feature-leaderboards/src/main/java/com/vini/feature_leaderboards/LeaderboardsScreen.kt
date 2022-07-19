@@ -35,11 +35,6 @@ fun LeaderboardsScreen(
         containerColor = Color(0xFF141214),
         modifier = modifier.fillMaxSize()
     ) { innerPadding ->
-        Text(
-            "Teste", modifier = modifier
-                .padding(innerPadding)
-                .consumedWindowInsets(innerPadding)
-        )
         BoxWithConstraints(
             modifier = modifier
                 .padding(innerPadding)

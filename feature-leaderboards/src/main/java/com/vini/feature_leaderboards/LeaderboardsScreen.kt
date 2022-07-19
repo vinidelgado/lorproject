@@ -4,23 +4,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalLayoutApi
@@ -76,7 +68,7 @@ fun LeaderboardsContent(viewModel: LeaderboardsViewModel = hiltViewModel()) {
             })
 
         Spacer(modifier = Modifier.height(32.dp))
-        viewModel.state.playersData.let { playerList ->
+        viewModel.state.players.let { playerList ->
             LazyColumn(
                 state = listState,
                 contentPadding = PaddingValues(all = 0.dp),
@@ -84,14 +76,6 @@ fun LeaderboardsContent(viewModel: LeaderboardsViewModel = hiltViewModel()) {
             ) {
                 items(playerList.size) { index ->
                     LeaderboardPlayerItem(player = playerList[index])
-                }
-            }
-        }
-
-        viewModel.state.selected.let {
-            if (it != -1) {
-                coroutineScope.launch {
-                    listState.animateScrollToItem(index = it)
                 }
             }
         }

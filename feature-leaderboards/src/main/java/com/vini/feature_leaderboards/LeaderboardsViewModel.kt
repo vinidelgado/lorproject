@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vini.core_data.model.ApiResult
 import com.vini.core_data.repository.LeaderboardsRepository
-import com.vini.core_model.PlayerData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -17,7 +16,7 @@ import javax.inject.Inject
 class LeaderboardsViewModel @Inject constructor(
     private val leaderRepository: LeaderboardsRepository,
 ) : ViewModel() {
-    var state by mutableStateOf(LorAmericasLeaderboards())
+    var state by mutableStateOf(LeaderboardsState())
 
     init {
         loadLeaderboardStream()
@@ -25,13 +24,13 @@ class LeaderboardsViewModel @Inject constructor(
 
     fun filterLeaderboardStream(namePlayer:String){
         viewModelScope.launch {
-            if(state.playersData.isNotEmpty()){
-                val filtredPlayers = state.playersData.filter {
+            if(state.players.isNotEmpty()){
+                val filtredPlayers = state.players.filter {
                     it.name.contains(namePlayer, ignoreCase = true)
                 }
                 if(filtredPlayers.isNotEmpty()){
                     state = state.copy(
-                        playersData = filtredPlayers
+                        players = filtredPlayers
                     )
                 }
             }
@@ -45,7 +44,7 @@ class LeaderboardsViewModel @Inject constructor(
                     is ApiResult.Success -> {
                         result.data?.let { data ->
                             state = state.copy(
-                                playersData = data,
+                                players = data,
                             )
                         }
                     }
@@ -63,21 +62,4 @@ class LeaderboardsViewModel @Inject constructor(
             }
         }
     }
-}
-
-data class LorAmericasLeaderboards(
-    val playersData: List<PlayerData> = ArrayList(),
-    val selected: Int = -1,
-    val isLoading: Boolean = false,
-    val error: String? = null
-)
-
-sealed interface LeaderboardsUiState {
-    object Loading : LeaderboardsUiState
-
-    data class Interests(
-        val authors: List<LeaderboardsUiState>
-    ) : LeaderboardsUiState
-
-    object Empty : LeaderboardsUiState
 }

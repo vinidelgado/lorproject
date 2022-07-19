@@ -3,6 +3,7 @@ package com.vini.feature_leaderboards
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.toUpperCase
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vini.core_data.model.Resource
@@ -21,6 +22,21 @@ class LeaderboardsViewModel @Inject constructor(
 
     init {
         loadLeaderboardStream()
+    }
+
+    fun filterLeaderboardStream(namePlayer:String){
+        viewModelScope.launch {
+            if(state.playersData.isNotEmpty()){
+                val filtredPlayers = state.playersData.filter {
+                    it.name.contains(namePlayer, ignoreCase = true)
+                }
+                if(filtredPlayers.isNotEmpty()){
+                    state = state.copy(
+                        playersData = filtredPlayers
+                    )
+                }
+            }
+        }
     }
 
     fun loadLeaderboardStream() {

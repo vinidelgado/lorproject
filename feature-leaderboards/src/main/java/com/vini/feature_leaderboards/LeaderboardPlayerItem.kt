@@ -24,7 +24,7 @@ import com.vini.core_model.PlayerData
 fun LeaderboardPlayerItem(player: PlayerData) {
     Card(
         shape = RoundedCornerShape(6.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF201E20))
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF201E20)),
     ) {
         Row(
             modifier = Modifier
@@ -51,8 +51,8 @@ fun LeaderboardPlayerItem(player: PlayerData) {
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     "${player.lp} PDL",
-//                    color = Color(0xFFD4914E),
-                    color = Color(0xFF676B6F),
+                    color = Color(0xFFD4914E),
+//                    color = Color(0xFF676B6F),
                     style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.Center,
                 )

@@ -1,6 +1,10 @@
 package com.vini.core_model.data.local
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.vini.core_model.TABLE_NAME
 
 @Dao
 interface LeaderboardPlayerDao {
@@ -9,9 +13,12 @@ interface LeaderboardPlayerDao {
     suspend fun insertPlayers(shoppingItem: LorLeaderboardPlayer)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllPlayers(playerList:List<LorLeaderboardPlayer>)
+    suspend fun insertAllPlayers(playerList: List<LorLeaderboardPlayer>)
 
-    @Delete
-    suspend fun deleteShoppingItem(shoppingItem: LorLeaderboardPlayer)
+    @Query("DELETE FROM $TABLE_NAME")
+    fun deleteAll()
+
+    @Query("SELECT * FROM $TABLE_NAME")
+    fun getAll(): List<LorLeaderboardPlayer>
 
 }

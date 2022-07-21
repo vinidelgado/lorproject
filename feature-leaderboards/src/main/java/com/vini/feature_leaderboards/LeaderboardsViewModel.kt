@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vini.core_data.domain.LeaderboardsUseCase
 import com.vini.core_data.model.ApiResult
-import com.vini.core_data.repository.LeaderboardsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,7 +25,8 @@ class LeaderboardsViewModel @Inject constructor(
     }
 
     private fun getLeaderboards() {
-        leaderboardsUseCase().onEach { result ->
+        viewModelScope.launch(context = Dispatchers.Default) {
+            val result = leaderboardsUseCase.invoke()
             state = when (result) {
                 is ApiResult.Success -> {
                     LeaderboardsState(players = result.data ?: emptyList())
@@ -39,7 +40,7 @@ class LeaderboardsViewModel @Inject constructor(
                     LeaderboardsState(isLoading = true)
                 }
             }
-        }.launchIn(viewModelScope)
+        }
     }
 
     fun filterLeaderboardStream(namePlayer: String) {

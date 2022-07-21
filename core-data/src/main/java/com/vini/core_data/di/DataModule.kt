@@ -16,14 +16,15 @@ object DataModule {
     @Provides
     @Singleton
     fun provideLeaderboardsUseCase(
-        leaderboardPlayerDao: LeaderboardPlayerDao,
-        repository: LeaderboardsRepository
+        repository: LeaderboardsRepository,
     ): LeaderboardsUseCase =
-        LeaderboardsUseCase(leaderboardPlayerDao, repository)
-//        LeaderboardsUseCase(repository)
+        LeaderboardsUseCase(repository)
 
     @Provides
     @Singleton
-    fun provideLeaderboardsRepository(api: LeaderboardApi): LeaderboardsRepository =
-        LeaderboardsRepository(api)
+    fun provideLeaderboardsRepository(
+        api: LeaderboardApi,
+        leaderboardPlayerDao: LeaderboardPlayerDao
+    ): LeaderboardsRepository =
+        LeaderboardsRepository(api = api,leaderboardPlayerDao = leaderboardPlayerDao)
 }

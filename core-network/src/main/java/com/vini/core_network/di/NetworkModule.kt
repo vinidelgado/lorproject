@@ -21,6 +21,7 @@ object AppModule {
     @Provides
     fun provideBaseUrl() = if (debug) {
         "https://62d4b4685112e98e4852070d.mockapi.io/"
+//        "https://americas.api.riotgames.com/"
     } else {
         "https://americas.api.riotgames.com/"
     }
@@ -31,7 +32,7 @@ object AppModule {
         return Interceptor { chain ->
             val request =
                 chain.request().newBuilder()
-                    .header("X-Riot-Token", "")
+                    .header("X-Riot-Token", "RGAPI-d2a1aee0-57ed-4c12-954d-a31c1570cfaf")
                     .build()
             chain.proceed(request)
         }

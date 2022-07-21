@@ -10,9 +10,6 @@ import com.vini.core_model.TABLE_NAME
 interface LeaderboardPlayerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPlayers(shoppingItem: LorLeaderboardPlayer)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllPlayers(playerList: List<LorLeaderboardPlayer>)
 
     @Query("DELETE FROM $TABLE_NAME")

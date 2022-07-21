@@ -24,35 +24,40 @@ class LeaderboardsViewModel @Inject constructor(
         getLeaderboards()
     }
 
-    private fun getLeaderboards() {
-        viewModelScope.launch(context = Dispatchers.Default) {
+    fun getLeaderboards() {
+        viewModelScope.launch(context = Dispatchers.IO) {
             val result = leaderboardsUseCase.invoke()
-            state = when (result) {
-                is ApiResult.Success -> {
-                    LeaderboardsState(players = result.data ?: emptyList())
-                }
-                is ApiResult.Error -> {
-                    LeaderboardsState(
-                        error = result.message ?: "An unexpected error occured"
-                    )
-                }
-                is ApiResult.Loading -> {
-                    LeaderboardsState(isLoading = true)
+            viewModelScope.launch(context = Dispatchers.Main) {
+                state = when (result) {
+                    is ApiResult.Success -> {
+                        LeaderboardsState(players = result.data ?: emptyList())
+                    }
+                    is ApiResult.Error -> {
+                        LeaderboardsState(
+                            error = result.message ?: "An unexpected error occured"
+                        )
+                    }
+                    is ApiResult.Loading -> {
+                        LeaderboardsState(isLoading = true)
+                    }
                 }
             }
         }
     }
 
     fun filterLeaderboardStream(namePlayer: String) {
-        viewModelScope.launch {
-            if (filtredState.players.isNotEmpty()) {
-                val filtredPlayers = state.players.filter {
+        if (namePlayer.trim().length > 2) {
+            viewModelScope.launch(context = Dispatchers.IO) {
+                val result = leaderboardsUseCase.invoke()
+                val filtredPlayers = result.data?.filter {
                     it.name.contains(namePlayer, ignoreCase = true)
-                }
+                } ?: emptyList()
                 if (filtredPlayers.isNotEmpty()) {
-                    filtredState = state.copy(
-                        players = filtredPlayers
-                    )
+                    viewModelScope.launch(context = Dispatchers.Main) {
+                        state = state.copy(
+                            players = filtredPlayers
+                        )
+                    }
                 }
             }
         }

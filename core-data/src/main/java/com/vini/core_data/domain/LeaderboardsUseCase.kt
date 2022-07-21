@@ -19,13 +19,11 @@ class LeaderboardsUseCase @Inject constructor(
         return try {
             val cachedListPlayer = repository.getCachedLeaderboards()
             if (cachedListPlayer.isEmpty()) {
-                ApiResult.Success(repository.getLeaderboards())
+                val leaderboards = repository.getLeaderboards()
+                repository.addPlayerList(playerDataToLorLeaderboardPlayer(leaderboards))
+                ApiResult.Success(leaderboards)
             } else {
-                val listPlayer = ArrayList<PlayerData>()
-                cachedListPlayer.forEach {
-                    listPlayer.add(PlayerData(name = it.name, rank = it.rank, lp = it.lp))
-                }
-                ApiResult.Success(listPlayer)
+                ApiResult.Success(lorLeaderboardPlayerToPlayerData(cachedListPlayer))
             }
         } catch (e: HttpException) {
             ApiResult.Error(e.localizedMessage ?: "An unexpected error occured")
@@ -35,5 +33,21 @@ class LeaderboardsUseCase @Inject constructor(
             Log.d("Nelson", e.message ?: "Erro desconhecido")
             ApiResult.Error(exception = "Server problems")
         }
+    }
+
+    private fun lorLeaderboardPlayerToPlayerData(cachedListPlayer: List<LorLeaderboardPlayer>): List<PlayerData> {
+        val listPlayer = ArrayList<PlayerData>()
+        cachedListPlayer.forEach {
+            listPlayer.add(PlayerData(name = it.name, rank = it.rank, lp = it.lp))
+        }
+        return listPlayer
+    }
+
+    private fun playerDataToLorLeaderboardPlayer(playerData: List<PlayerData>): List<LorLeaderboardPlayer> {
+        val listPlayer = ArrayList<LorLeaderboardPlayer>()
+        playerData.forEach {
+            listPlayer.add(LorLeaderboardPlayer(name = it.name, rank = it.rank, lp = it.lp))
+        }
+        return listPlayer
     }
 }

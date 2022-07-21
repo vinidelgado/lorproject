@@ -3,6 +3,7 @@ package com.vini.core_data.repository
 import androidx.annotation.WorkerThread
 import com.vini.core_model.PlayerData
 import com.vini.core_model.data.local.LeaderboardPlayerDao
+import com.vini.core_model.data.local.LorLeaderboardPlayer
 import com.vini.core_network.retrofit.LeaderboardApi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flow
@@ -16,4 +17,8 @@ class LeaderboardsRepository @Inject constructor(
 
     @WorkerThread
     fun getCachedLeaderboards() = leaderboardPlayerDao.getAll()
+
+    @WorkerThread
+    suspend fun addPlayerList(playerList: List<LorLeaderboardPlayer>) =
+        leaderboardPlayerDao.insertAllPlayers(playerList)
 }

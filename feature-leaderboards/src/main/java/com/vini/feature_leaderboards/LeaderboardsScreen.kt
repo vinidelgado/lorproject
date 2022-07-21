@@ -58,13 +58,16 @@ fun LeaderboardsContent(viewModel: LeaderboardsViewModel = hiltViewModel()) {
             searchText = text,
             labelText = "Player name",
             onSearchTextChanged = {
-                if(it.length > 2){
+                if (it.isNotEmpty() && it.length > 2) {
                     viewModel.filterLeaderboardStream(it)
+                } else if (it.isEmpty()) {
+                    viewModel.getLeaderboards()
                 }
                 text = it
             },
             onClearClick = {
                 text = ""
+                viewModel.getLeaderboards()
             })
 
         Spacer(modifier = Modifier.height(32.dp))

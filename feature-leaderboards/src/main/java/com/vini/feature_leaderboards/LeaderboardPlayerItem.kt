@@ -24,7 +24,7 @@ import com.vini.core_model.PlayerData
 fun LeaderboardPlayerItem(player: PlayerData) {
     Card(
         shape = RoundedCornerShape(6.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF201E20)),
+        colors = CardDefaults.cardColors(containerColor = Color(0x0FFFFFFF)),
     ) {
         Row(
             modifier = Modifier

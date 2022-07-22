@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -11,6 +12,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -20,6 +22,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 
@@ -46,7 +49,12 @@ fun LeaderboardSearchPlayer(
         value = searchText,
         onValueChange = onSearchTextChanged,
         label = {
-            Text(text = labelText.toUpperCase())
+            Text(
+                text = labelText.toUpperCase(),
+                fontWeight = FontWeight.W500,
+                color = Color(0xFFF4F2F3),
+                style = MaterialTheme.typography.bodySmall,
+            )
         },
         colors = TextFieldDefaults.textFieldColors(
             focusedLabelColor = Color(0xFF979596),
@@ -57,7 +65,7 @@ fun LeaderboardSearchPlayer(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             trailingIconColor = Color(0xFFB6B6B6),
-            backgroundColor = Color(0xFF201E20),
+            backgroundColor = Color(0x0FFFFFFF),
             cursorColor = LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
         ),
         trailingIcon = {

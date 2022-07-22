@@ -5,8 +5,6 @@ import com.vini.lorproject.buildsrc.Versions
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("dagger.hilt.android.plugin")
-    kotlin("kapt")
 }
 
 android {
@@ -19,6 +17,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
+
 
     buildTypes {
         release {
@@ -45,11 +44,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core-designsystem"))
-    implementation(project(":core-data"))
-    implementation(project(":core-model"))
-    implementation(project(":core-ui"))
-
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.composeDefault)
     implementation(Dependencies.composeTooling)
@@ -59,26 +53,4 @@ dependencies {
     implementation(Dependencies.appCompat)
     implementation(Dependencies.material)
     implementation(Dependencies.material3)
-    implementation(Dependencies.daggerHilt)
-    kapt(Dependencies.daggerHiltCompiler)
-//    implementation(Dependencies.daggerHiltLifecycle)
-    implementation(Dependencies.hiltNavigationCompose)
-    implementation(Dependencies.retrofit)
-    implementation(Dependencies.retrofitMoshiConverter)
-    implementation(Dependencies.okHttp)
-    implementation(Dependencies.okHttpLoggingInterceptor)
-
-    implementation(Dependencies.roomRuntime)
-    implementation(Dependencies.roomKtx)
-    kapt(Dependencies.roomCompiler)
-
-    implementation(Dependencies.paging3)
-    implementation(Dependencies.windowSize)
-
-    testImplementation(Dependencies.junit4)
-    androidTestImplementation(Dependencies.junitExtensions)
-    androidTestImplementation(Dependencies.espressoCore)
-    androidTestImplementation(Dependencies.composeUiTest)
-    debugImplementation(Dependencies.composeTooling)
-    debugImplementation(Dependencies.testManifest)
 }

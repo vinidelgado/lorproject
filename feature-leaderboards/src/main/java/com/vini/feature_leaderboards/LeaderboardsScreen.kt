@@ -3,16 +3,22 @@ package com.vini.feature_leaderboards
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.List
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.vini.core_ui.components.LorTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalLayoutApi
@@ -22,7 +28,12 @@ fun LeaderboardsScreen(
 ) {
     Scaffold(
         topBar = {
-//            LeaderboardsTitle()
+            LorTopAppBar(
+                titleRes = R.string.leaderboard_feature_title,
+                modifier = Modifier.windowInsetsPadding(
+                    WindowInsets.safeDrawing.only(WindowInsetsSides.Top)
+                )
+            )
         },
         containerColor = Color(0xFF141214),
         modifier = modifier.fillMaxSize()
@@ -47,10 +58,9 @@ fun LeaderboardsScreen(
 @Composable
 fun LeaderboardsContent(viewModel: LeaderboardsViewModel = hiltViewModel()) {
     val listState = rememberLazyListState()
-    val coroutineScope = rememberCoroutineScope()
     Column(
         modifier = Modifier
-            .padding(vertical = 24.dp, horizontal = 12.dp)
+            .padding(vertical = 12.dp, horizontal = 12.dp)
     ) {
 
         var text by remember { mutableStateOf("") }
@@ -70,7 +80,7 @@ fun LeaderboardsContent(viewModel: LeaderboardsViewModel = hiltViewModel()) {
                 viewModel.getLeaderboards()
             })
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         viewModel.state.players.let { playerList ->
             LazyColumn(
                 state = listState,

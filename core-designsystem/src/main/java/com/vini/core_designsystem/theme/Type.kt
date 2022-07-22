@@ -8,11 +8,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.vini.core_designsystem.R
 
-private val light = Font(R.font.rubik_light, FontWeight.W300)
-private val regular = Font(R.font.rubik_regular, FontWeight.W400)
-private val medium = Font(R.font.rubik_medium, FontWeight.W500)
-private val semibold = Font(R.font.rubik_semibold, FontWeight.W600)
-private val bold = Font(R.font.rubik_bold, FontWeight.W700)
+private val light = Font(R.font.opensans_light, FontWeight.W300)
+private val regular = Font(R.font.opensans_regular, FontWeight.W400)
+private val medium = Font(R.font.opensans_medium, FontWeight.W500)
+private val semibold = Font(R.font.opensans_semibold, FontWeight.W600)
+private val bold = Font(R.font.opensans_bold, FontWeight.W700)
 
 private val rubikFontFamily = FontFamily(fonts = listOf(light, regular, medium, semibold,bold))
 

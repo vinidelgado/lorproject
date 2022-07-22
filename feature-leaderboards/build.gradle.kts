@@ -49,7 +49,7 @@ dependencies {
     implementation(project(":core-data"))
     implementation(project(":core-model"))
     implementation(project(":core-ui"))
-
+    implementation(Dependencies.systemUi)
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.composeDefault)
     implementation(Dependencies.composeTooling)

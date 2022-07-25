@@ -26,6 +26,12 @@ object CoreModelModule {
         database: LorProjectDatabase
     ) = database.lorLeaderboardsDao()
 
+    @Singleton
+    @Provides
+    fun provideLeaderboardConfigrDao(
+        database: LorProjectDatabase
+    ) = database.lorLeaderboardConfigDao()
+
 
 
 }

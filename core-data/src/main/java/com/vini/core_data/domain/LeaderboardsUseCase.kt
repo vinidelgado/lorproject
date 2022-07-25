@@ -19,6 +19,7 @@ class LeaderboardsUseCase @Inject constructor(
         return try {
             val cachedListPlayer = repository.getCachedLeaderboards()
             if (cachedListPlayer.isEmpty()) {
+                repository.addConfig(System.currentTimeMillis().toString())
                 val leaderboards = repository.getLeaderboards()
                 repository.addPlayerList(playerDataToLorLeaderboardPlayer(leaderboards))
                 ApiResult.Success(leaderboards)

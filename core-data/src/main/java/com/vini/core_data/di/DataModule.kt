@@ -2,6 +2,7 @@ package com.vini.core_data.di
 
 import com.vini.core_data.domain.LeaderboardsUseCase
 import com.vini.core_data.repository.LeaderboardsRepository
+import com.vini.core_model.data.local.LeaderboardConfigDao
 import com.vini.core_model.data.local.LeaderboardPlayerDao
 import com.vini.core_network.retrofit.LeaderboardApi
 import dagger.Module
@@ -24,7 +25,12 @@ object DataModule {
     @Singleton
     fun provideLeaderboardsRepository(
         api: LeaderboardApi,
-        leaderboardPlayerDao: LeaderboardPlayerDao
+        leaderboardPlayerDao: LeaderboardPlayerDao,
+        leaderboardConfigDao: LeaderboardConfigDao,
     ): LeaderboardsRepository =
-        LeaderboardsRepository(api = api,leaderboardPlayerDao = leaderboardPlayerDao)
+        LeaderboardsRepository(
+            api = api,
+            leaderboardPlayerDao = leaderboardPlayerDao,
+            leaderboardConfigDao = leaderboardConfigDao
+        )
 }

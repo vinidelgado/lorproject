@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.vini.core_model.PlayerData
 import com.vini.core_ui.components.AnimatedShimmer
 import com.vini.core_ui.components.LorTopAppBar
 
@@ -61,57 +62,88 @@ fun LeaderboardsScreen(
 
 @Composable
 fun LeaderboardsContent(viewModel: LeaderboardsViewModel = hiltViewModel()) {
-    val listState = rememberLazyListState()
+    val leaderboardsUIState by viewModel.state.collectAsState()
     Column(
         modifier = Modifier
             .padding(vertical = 12.dp, horizontal = 12.dp)
     ) {
-        viewModel.state.isLoading.let { isLoading ->
-            if (isLoading) {
-                Column {
-                    repeat(8) {
-                        AnimatedShimmer()
-                    }
+        var text by remember { mutableStateOf("") }
+        LeaderboardSearchPlayer(
+            searchText = text,
+            labelText = "Player name",
+            onSearchTextChanged = {
+                if (it.isNotEmpty() && it.length > 2) {
+                    viewModel.filterLeaderboardStream(it)
+                } else if (it.isEmpty()) {
+                    viewModel.getLeaderboards()
                 }
-            } else {
-                var text by remember { mutableStateOf("") }
-                LeaderboardSearchPlayer(
-                    searchText = text,
-                    labelText = "Player name",
-                    onSearchTextChanged = {
-                        if (it.isNotEmpty() && it.length > 2) {
-                            viewModel.filterLeaderboardStream(it)
-                        } else if (it.isEmpty()) {
-                            viewModel.getLeaderboards()
-                        }
-                        text = it
-                    },
-                    onClearClick = {
-                        text = ""
-                        viewModel.getLeaderboards()
-                    })
+                text = it
+            },
+            onClearClick = {
+                text = ""
+                viewModel.getLeaderboards()
+            })
+
+        when (val uiState = leaderboardsUIState) {
+            is LeaderboardsState.Loading -> {
+                LeaderboardsLoading()
+            }
+            is LeaderboardsState.Error -> {
+                LeaderboardsError(error = uiState.error)
+            }
+            is LeaderboardsState.Leaderboard -> {
+                LeaderboardsSuccess(players = uiState.players)
+            }
+            else -> {
+                LeaderboardsEmpty()
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
-        viewModel.state.players.let { playerList ->
-            LazyColumn(
-                state = listState,
-                contentPadding = PaddingValues(all = 0.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(playerList.size) { index ->
-                    LeaderboardPlayerItem(player = playerList[index])
-                }
-            }
-        }
+    }
+}
 
-        viewModel.state.error?.let { error ->
-            Text(
-                text = error,
-                color = Color.Red,
-                textAlign = TextAlign.Center,
-            )
+@Composable
+fun LeaderboardsLoading() {
+    Column {
+        repeat(8) {
+            AnimatedShimmer()
+        }
+    }
+}
+
+@Composable
+fun LeaderboardsError(error: String) {
+    Text(
+        text = error,
+        color = Color.Red,
+        textAlign = TextAlign.Center,
+    )
+}
+
+@Composable
+fun LeaderboardsEmpty() {
+    Text(
+        text = "Don´t have players on master tier",
+        color = Color.Red,
+        textAlign = TextAlign.Center,
+    )
+}
+
+@Composable
+fun LeaderboardsSuccess(
+    players: List<PlayerData>,
+) {
+    val listState = rememberLazyListState()
+    Spacer(modifier = Modifier.height(16.dp))
+    players.let { playerList ->
+        LazyColumn(
+            state = listState,
+            contentPadding = PaddingValues(all = 0.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(playerList.size) { index ->
+                LeaderboardPlayerItem(player = playerList[index])
+            }
         }
     }
 }

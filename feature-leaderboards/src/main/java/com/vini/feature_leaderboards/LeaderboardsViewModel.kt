@@ -1,23 +1,21 @@
 package com.vini.feature_leaderboards
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vini.core_data.domain.LeaderboardsUseCase
 import com.vini.core_data.model.ApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LeaderboardsViewModel @Inject constructor(
     private val leaderboardsUseCase: LeaderboardsUseCase,
 ) : ViewModel() {
-    var state by mutableStateOf(LeaderboardsState())
+    val state = MutableStateFlow<LeaderboardsState>(LeaderboardsState.Loading)
 
     init {
         getLeaderboards()
@@ -27,17 +25,21 @@ class LeaderboardsViewModel @Inject constructor(
         viewModelScope.launch(context = Dispatchers.IO) {
             val result = leaderboardsUseCase.invoke()
             viewModelScope.launch(context = Dispatchers.Main) {
-                state = when (result) {
+                state.value = when (result) {
                     is ApiResult.Success -> {
-                        LeaderboardsState(players = result.data ?: emptyList())
+                        if (result.data.isNullOrEmpty()) {
+                            LeaderboardsState.Empty
+                        } else {
+                            LeaderboardsState.Leaderboard(players = result.data ?: emptyList())
+                        }
                     }
                     is ApiResult.Error -> {
-                        LeaderboardsState(
+                        LeaderboardsState.Error(
                             error = result.message ?: "An unexpected error occured"
                         )
                     }
                     is ApiResult.Loading -> {
-                        LeaderboardsState(isLoading = true)
+                        LeaderboardsState.Loading
                     }
                 }
             }
@@ -46,6 +48,7 @@ class LeaderboardsViewModel @Inject constructor(
 
     fun filterLeaderboardStream(namePlayer: String) {
         if (namePlayer.trim().length > 2) {
+            state.value = LeaderboardsState.Loading
             viewModelScope.launch(context = Dispatchers.IO) {
                 val result = leaderboardsUseCase.invoke()
                 val filtredPlayers = result.data?.filter {
@@ -53,9 +56,7 @@ class LeaderboardsViewModel @Inject constructor(
                 } ?: emptyList()
                 if (filtredPlayers.isNotEmpty()) {
                     viewModelScope.launch(context = Dispatchers.Main) {
-                        state = state.copy(
-                            players = filtredPlayers
-                        )
+                        state.value = LeaderboardsState.Leaderboard(players = filtredPlayers)
                     }
                 }
             }

@@ -10,6 +10,7 @@ import com.vini.core_network.retrofit.LeaderboardApi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+
 class LeaderboardsRepository @Inject constructor(
     private val api: LeaderboardApi,
     private val leaderboardPlayerDao: LeaderboardPlayerDao,
@@ -23,6 +24,9 @@ class LeaderboardsRepository @Inject constructor(
     @WorkerThread
     suspend fun addPlayerList(playerList: List<LorLeaderboardPlayer>) =
         leaderboardPlayerDao.insertAllPlayers(playerList)
+
+    @WorkerThread
+    fun deleteAllPlayerList() = leaderboardPlayerDao.deleteAll()
 
     @WorkerThread
     suspend fun addConfig(config: String) {

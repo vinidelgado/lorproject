@@ -33,6 +33,7 @@ object AppModule {
             val request =
                 chain.request().newBuilder()
                     .header("X-Riot-Token", "")
+//                    .header("X-Riot-Token", "RGAPI-f65db8a4-9f41-4569-afe9-8cd212b16c99")
                     .build()
             chain.proceed(request)
         }

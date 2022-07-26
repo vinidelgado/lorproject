@@ -18,4 +18,6 @@ interface LeaderboardConfigDao {
     @Query("SELECT * FROM $TABLE_NAME_CONFIG")
     fun getAll(): LorLeaderboardConfig
 
+
+
 }

@@ -52,7 +52,6 @@ fun LeaderboardPlayerItem(player: PlayerData) {
                 Text(
                     "${player.lp} PDL",
                     color = Color(0xFFD4914E),
-//                    color = Color(0xFF676B6F),
                     style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.Center,
                 )

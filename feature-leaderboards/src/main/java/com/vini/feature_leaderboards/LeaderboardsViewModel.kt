@@ -18,7 +18,6 @@ class LeaderboardsViewModel @Inject constructor(
     private val leaderboardsUseCase: LeaderboardsUseCase,
 ) : ViewModel() {
     var state by mutableStateOf(LeaderboardsState())
-    var filtredState by mutableStateOf(LeaderboardsState())
 
     init {
         getLeaderboards()

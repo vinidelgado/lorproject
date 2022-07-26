@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.vini.core_ui.components.AnimatedShimmer
 import com.vini.core_ui.components.LorTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -65,23 +66,32 @@ fun LeaderboardsContent(viewModel: LeaderboardsViewModel = hiltViewModel()) {
         modifier = Modifier
             .padding(vertical = 12.dp, horizontal = 12.dp)
     ) {
-
-        var text by remember { mutableStateOf("") }
-        LeaderboardSearchPlayer(
-            searchText = text,
-            labelText = "Player name",
-            onSearchTextChanged = {
-                if (it.isNotEmpty() && it.length > 2) {
-                    viewModel.filterLeaderboardStream(it)
-                } else if (it.isEmpty()) {
-                    viewModel.getLeaderboards()
+        viewModel.state.isLoading.let { isLoading ->
+            if (isLoading) {
+                Column {
+                    repeat(8) {
+                        AnimatedShimmer()
+                    }
                 }
-                text = it
-            },
-            onClearClick = {
-                text = ""
-                viewModel.getLeaderboards()
-            })
+            } else {
+                var text by remember { mutableStateOf("") }
+                LeaderboardSearchPlayer(
+                    searchText = text,
+                    labelText = "Player name",
+                    onSearchTextChanged = {
+                        if (it.isNotEmpty() && it.length > 2) {
+                            viewModel.filterLeaderboardStream(it)
+                        } else if (it.isEmpty()) {
+                            viewModel.getLeaderboards()
+                        }
+                        text = it
+                    },
+                    onClearClick = {
+                        text = ""
+                        viewModel.getLeaderboards()
+                    })
+            }
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
         viewModel.state.players.let { playerList ->

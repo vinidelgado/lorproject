@@ -26,6 +26,10 @@ class LeaderboardsRepository @Inject constructor(
         leaderboardPlayerDao.insertAllPlayers(playerList)
 
     @WorkerThread
-    suspend fun addConfig(config:String) =
+    suspend fun addConfig(config: String) =
         leaderboardConfigDao.insertConfig(LorLeaderboardConfig(lastUpdate = config))
+
+    @WorkerThread
+    fun getConfig() =
+        leaderboardConfigDao.getAll()
 }

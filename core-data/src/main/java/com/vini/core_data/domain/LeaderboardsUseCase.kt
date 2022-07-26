@@ -4,12 +4,10 @@ import android.util.Log
 import com.vini.core_data.model.ApiResult
 import com.vini.core_data.repository.LeaderboardsRepository
 import com.vini.core_model.PlayerData
-import com.vini.core_model.data.local.LeaderboardPlayerDao
 import com.vini.core_model.data.local.LorLeaderboardPlayer
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
+import java.lang.NullPointerException
 import javax.inject.Inject
 
 class LeaderboardsUseCase @Inject constructor(
@@ -18,7 +16,7 @@ class LeaderboardsUseCase @Inject constructor(
     suspend operator fun invoke(): ApiResult<List<PlayerData>> {
         return try {
             val cachedListPlayer = repository.getCachedLeaderboards()
-            if (cachedListPlayer.isEmpty()) {
+            if (needUpdate(cachedListPlayer)) {
                 repository.addConfig(System.currentTimeMillis().toString())
                 val leaderboards = repository.getLeaderboards()
                 repository.addPlayerList(playerDataToLorLeaderboardPlayer(leaderboards))
@@ -34,6 +32,18 @@ class LeaderboardsUseCase @Inject constructor(
             Log.d("Nelson", e.message ?: "Erro desconhecido")
             ApiResult.Error(exception = "Server problems")
         }
+    }
+
+    private fun needUpdate(cachedListPlayer: List<LorLeaderboardPlayer>): Boolean {
+        return try {
+            val lastUpdate = repository.getConfig().lastUpdate.toLong()
+            val dataExpired = lastUpdate < (System.currentTimeMillis() + (1000 * 60 * 60 * 24))
+            val emptyList = cachedListPlayer.isEmpty()
+            dataExpired || emptyList
+        } catch (e: NullPointerException) {
+            true
+        }
+
     }
 
     private fun lorLeaderboardPlayerToPlayerData(cachedListPlayer: List<LorLeaderboardPlayer>): List<PlayerData> {

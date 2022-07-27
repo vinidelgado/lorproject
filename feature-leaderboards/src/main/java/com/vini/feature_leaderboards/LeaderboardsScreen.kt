@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.vini.core_model.PlayerData
+import com.vini.core_model.model.leaderboards.PlayerData
 import com.vini.core_ui.components.AnimatedShimmer
 import com.vini.core_ui.components.LorTopAppBar
 

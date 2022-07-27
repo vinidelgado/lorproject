@@ -77,7 +77,10 @@ fun LeaderboardSearchPlayer(
                 IconButton(onClick = { onClearClick() }) {
                     Icon(
                         imageVector = Icons.Filled.Close,
-                        contentDescription = stringResource(id = com.google.android.material.R.string.icon_content_description)
+                        contentDescription = stringResource(id = com.google.android.material.R.string.icon_content_description),
+                        tint = if(labelText.isNotEmpty()) { Color(0xFF930006) } else {
+                            Color(0xFFF5F5F5)
+                        }
                     )
                 }
 

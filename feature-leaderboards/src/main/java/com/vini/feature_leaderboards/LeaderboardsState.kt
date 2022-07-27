@@ -1,6 +1,6 @@
 package com.vini.feature_leaderboards
 
-import com.vini.core_model.PlayerData
+import com.vini.core_model.model.leaderboards.PlayerData
 
 //data class LeaderboardsState(
 //    val isLoading: Boolean = false,

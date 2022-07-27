@@ -1,14 +1,12 @@
 package com.vini.core_data.repository
 
 import androidx.annotation.WorkerThread
-import com.vini.core_model.PlayerData
+import com.vini.core_model.model.leaderboards.PlayerData
 import com.vini.core_model.data.local.LeaderboardConfigDao
 import com.vini.core_model.data.local.LeaderboardPlayerDao
 import com.vini.core_model.data.local.LorLeaderboardConfig
 import com.vini.core_model.data.local.LorLeaderboardPlayer
 import com.vini.core_network.retrofit.LeaderboardApi
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class LeaderboardsRepository @Inject constructor(

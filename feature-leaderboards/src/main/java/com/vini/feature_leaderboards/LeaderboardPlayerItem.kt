@@ -3,7 +3,6 @@ package com.vini.feature_leaderboards
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material3.*
@@ -17,7 +16,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.vini.core_model.PlayerData
+import com.vini.core_model.model.leaderboards.PlayerData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

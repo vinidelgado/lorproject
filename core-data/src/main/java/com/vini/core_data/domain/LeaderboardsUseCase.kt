@@ -3,7 +3,7 @@ package com.vini.core_data.domain
 import android.util.Log
 import com.vini.core_data.model.ApiResult
 import com.vini.core_data.repository.LeaderboardsRepository
-import com.vini.core_model.PlayerData
+import com.vini.core_model.model.leaderboards.PlayerData
 import com.vini.core_model.data.local.LorLeaderboardPlayer
 import retrofit2.HttpException
 import java.io.IOException

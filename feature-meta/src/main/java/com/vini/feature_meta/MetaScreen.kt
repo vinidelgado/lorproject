@@ -5,9 +5,12 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.vini.core_ui.components.LorTopAppBar
 
@@ -46,8 +49,28 @@ fun MetaScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
-
+                MetaDecksContent()
             }
+        }
+    }
+}
+
+@Composable
+fun MetaDecksContent(viewModel: MetaViewModel = hiltViewModel()) {
+    val metaDecksUIState by viewModel.state.collectAsState()
+
+    when (val uiState = metaDecksUIState) {
+        is MetaState.Loading -> {
+//            LeaderboardsLoading()
+        }
+        is MetaState.Error -> {
+//            LeaderboardsError(error = uiState.error)
+        }
+        is MetaState.MetaDecks -> {
+//            LeaderboardsSuccess(players = uiState.players)
+        }
+        else -> {
+//            LeaderboardsEmpty()
         }
     }
 }

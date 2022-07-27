@@ -1,7 +1,9 @@
 package com.vini.core_data.di
 
 import com.vini.core_data.domain.LeaderboardsUseCase
+import com.vini.core_data.domain.MetaDecksUseCase
 import com.vini.core_data.repository.LeaderboardsRepository
+import com.vini.core_data.repository.MetaRepository
 import com.vini.core_model.data.local.LeaderboardConfigDao
 import com.vini.core_model.data.local.LeaderboardPlayerDao
 import com.vini.core_network.retrofit.LeaderboardApi
@@ -23,6 +25,13 @@ object DataModule {
 
     @Provides
     @Singleton
+    fun provideMetaDecksUseCase(
+        repository: MetaRepository,
+    ): MetaDecksUseCase =
+        MetaDecksUseCase(repository)
+
+    @Provides
+    @Singleton
     fun provideLeaderboardsRepository(
         api: LeaderboardApi,
         leaderboardPlayerDao: LeaderboardPlayerDao,
@@ -33,4 +42,11 @@ object DataModule {
             leaderboardPlayerDao = leaderboardPlayerDao,
             leaderboardConfigDao = leaderboardConfigDao
         )
+
+
+    @Provides
+    @Singleton
+    fun provideMetaRepository(
+        api: LeaderboardApi,
+    ): MetaRepository = MetaRepository(api = api)
 }

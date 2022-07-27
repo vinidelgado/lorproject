@@ -5,5 +5,5 @@ import com.vini.core_model.model.leaderboards.PlayerData
 
 data class MetaDecks(
     @field:Json(name = "meta")
-    val playersData: List<MetaData>
+    val deckList: List<MetaData>
 )

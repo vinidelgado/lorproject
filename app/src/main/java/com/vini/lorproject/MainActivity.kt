@@ -30,6 +30,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.vini.core_designsystem.theme.LorProjectTheme
 import com.vini.feature_leaderboards.LeaderboardsScreen
+import com.vini.feature_meta.MetaScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -136,7 +137,7 @@ fun NavigationGraph(navController: NavHostController) {
             LeaderboardsScreen()
         }
         composable(BottomNavItem.Meta.screen_route) {
-//            AddPostScreen()
+            MetaScreen()
         }
     }
 }

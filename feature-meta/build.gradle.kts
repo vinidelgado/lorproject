@@ -3,26 +3,21 @@ import com.vini.lorproject.buildsrc.Dependencies
 import com.vini.lorproject.buildsrc.Versions
 
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    kotlin("kapt")
 }
 
 android {
     compileSdk = Configs.compileSdkVersion
 
     defaultConfig {
-        applicationId = Configs.applicationId
         minSdk = Configs.minSdkVersion
         targetSdk = Configs.targetSdkVersion
-        versionCode = Configs.versionCode
-        versionName = Configs.versionName
 
-        testInstrumentationRunner = Configs.testInstrumentationRunner
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -56,8 +51,9 @@ android {
 
 dependencies {
     implementation(project(":core-designsystem"))
-    implementation(project(":feature-leaderboards"))
-    implementation(project(":feature-meta"))
+    implementation(project(":core-data"))
+    implementation(project(":core-model"))
+    implementation(project(":core-ui"))
     implementation(Dependencies.systemUi)
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.composeDefault)
@@ -71,4 +67,22 @@ dependencies {
     implementation(Dependencies.daggerHilt)
     kapt(Dependencies.daggerHiltCompiler)
     implementation(Dependencies.hiltNavigationCompose)
+    implementation(Dependencies.retrofit)
+    implementation(Dependencies.retrofitMoshiConverter)
+    implementation(Dependencies.okHttp)
+    implementation(Dependencies.okHttpLoggingInterceptor)
+
+    implementation(Dependencies.roomRuntime)
+    implementation(Dependencies.roomKtx)
+    kapt(Dependencies.roomCompiler)
+
+    implementation(Dependencies.paging3)
+    implementation(Dependencies.windowSize)
+
+    testImplementation(Dependencies.junit4)
+    androidTestImplementation(Dependencies.junitExtensions)
+    androidTestImplementation(Dependencies.espressoCore)
+    androidTestImplementation(Dependencies.composeUiTest)
+    debugImplementation(Dependencies.composeTooling)
+    debugImplementation(Dependencies.testManifest)
 }

@@ -1,4 +1,4 @@
-package com.vini.core_model
+package com.vini.core_model.model.leaderboards
 
 import com.squareup.moshi.Json
 

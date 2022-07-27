@@ -57,6 +57,7 @@ android {
 dependencies {
     implementation(project(":core-designsystem"))
     implementation(project(":feature-leaderboards"))
+    implementation(Dependencies.systemUi)
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.composeDefault)
     implementation(Dependencies.composeTooling)

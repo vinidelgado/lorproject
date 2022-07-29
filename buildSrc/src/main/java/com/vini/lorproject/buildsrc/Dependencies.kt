@@ -64,4 +64,5 @@ object Dependencies {
     const val paging3 = "androidx.paging:paging-compose:${Versions.paging3}"
     const val windowSize = "androidx.compose.material3:material3-window-size-class:${Versions.windowSize}"
     const val systemUi = "com.google.accompanist:accompanist-systemuicontroller:${Versions.systemUI}"
+    const val coil = "io.coil-kt:coil-compose:${Versions.coil}"
 }

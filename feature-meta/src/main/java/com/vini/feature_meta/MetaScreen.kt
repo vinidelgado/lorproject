@@ -1,6 +1,7 @@
 package com.vini.feature_meta
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -10,8 +11,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.vini.core_model.model.meta_decks.MetaData
 import com.vini.core_ui.components.LorTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,10 +70,24 @@ fun MetaDecksContent(viewModel: MetaViewModel = hiltViewModel()) {
 //            LeaderboardsError(error = uiState.error)
         }
         is MetaState.MetaDecks -> {
+            MetaDeckList(uiState.deckList)
 //            LeaderboardsSuccess(players = uiState.players)
         }
         else -> {
 //            LeaderboardsEmpty()
+        }
+    }
+}
+
+@Composable
+fun MetaDeckList(deckList: List<MetaData>) {
+    LazyColumn(
+        contentPadding = PaddingValues(all = 0.dp),
+        verticalArrangement = Arrangement.spacedBy(32.dp)
+    ) {
+        items(deckList.size) { index ->
+            MetaDeckItem(metaData = deckList[index])
+
         }
     }
 }

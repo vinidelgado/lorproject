@@ -39,4 +39,5 @@ object Versions {
     const val paging3 = "1.0.0-alpha02"
     const val windowSize = "1.0.0-alpha13"
     const val systemUI = "0.24.13-rc"
+    const val coil = "2.1.0"
 }

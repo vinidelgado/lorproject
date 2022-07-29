@@ -79,6 +79,8 @@ dependencies {
     implementation(Dependencies.paging3)
     implementation(Dependencies.windowSize)
 
+    implementation(Dependencies.coil)
+
     testImplementation(Dependencies.junit4)
     androidTestImplementation(Dependencies.junitExtensions)
     androidTestImplementation(Dependencies.espressoCore)

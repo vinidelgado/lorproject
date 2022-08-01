@@ -48,8 +48,8 @@ fun MetaScreen(
                 .consumedWindowInsets(innerPadding)
         ) {
             Column(
-                modifier = modifier,
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = modifier.padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
                 MetaDecksContent()
@@ -87,7 +87,6 @@ fun MetaDeckList(deckList: List<MetaData>) {
     ) {
         items(deckList.size) { index ->
             MetaDeckItem(metaData = deckList[index])
-
         }
     }
 }

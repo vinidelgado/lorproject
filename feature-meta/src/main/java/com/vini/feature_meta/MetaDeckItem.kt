@@ -87,7 +87,7 @@ fun ButtonCopyCode(metaData: MetaData) {
         )
     ) {
         Text(
-            text = "Copy Deck Code".toUpperCase(),
+            text = "COPY DECK CODE",
             style = MaterialTheme.typography.labelMedium,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,

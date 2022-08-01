@@ -25,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import java.util.*
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -50,7 +51,7 @@ fun LeaderboardSearchPlayer(
         onValueChange = onSearchTextChanged,
         label = {
             Text(
-                text = labelText.toUpperCase(),
+                text = labelText.uppercase(Locale.getDefault()),
                 fontWeight = FontWeight.W500,
                 color = Color(0xFFF4F2F3),
                 style = MaterialTheme.typography.bodySmall,

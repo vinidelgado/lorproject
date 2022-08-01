@@ -1,7 +1,5 @@
 package com.vini.feature_meta
 
-import android.annotation.SuppressLint
-import android.content.ClipboardManager
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -8,6 +8,6 @@ interface LeaderboardApi {
     @GET("lor/ranked/v1/leaderboards")
     suspend fun getLeaderboards(): PlayersLeaderboards
 
-    @GET("lor/ranked/v1/")
+    @GET("lor/ranked/v1/meta")
     suspend fun getMetaDecks(): MetaDecks
 }

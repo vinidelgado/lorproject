@@ -10,9 +10,9 @@ data class MetaData(
     @field:Json(name = "total_matches")
     val totalMatches: Int,
     @field:Json(name = "playrate")
-    val playRate: Int,
+    val playRate: Float,
     @field:Json(name = "winrate")
-    val winRate: Int,
+    val winRate: Float,
     @field:Json(name = "best_decks")
     val bestDecks: List<String>,
 )

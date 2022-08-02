@@ -43,8 +43,8 @@ fun LeaderboardPlayerItem(player: PlayerData) {
                 Text(
                     player.name,
                     fontWeight = FontWeight.W500,
-                    color = Color(0xFFF4F2F3),
                     style = MaterialTheme.typography.bodyLarge,
+                    color = Color(0xFFF4F2F3),
                     textAlign = TextAlign.Start,
                 )
                 Spacer(modifier = Modifier.height(4.dp))

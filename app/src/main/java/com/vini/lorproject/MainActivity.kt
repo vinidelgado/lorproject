@@ -31,6 +31,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.vini.core_designsystem.theme.LorProjectTheme
 import com.vini.feature_leaderboards.LeaderboardsScreen
 import com.vini.feature_meta.MetaScreen
+import com.vini.feature_news.NewsScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -131,7 +132,7 @@ fun BottomNavigation(navController: NavController) {
 fun NavigationGraph(navController: NavHostController) {
     NavHost(navController, startDestination = BottomNavItem.Home.screen_route) {
         composable(BottomNavItem.Home.screen_route) {
-//            HomeScreen()
+            NewsScreen()
         }
         composable(BottomNavItem.Leaderboards.screen_route) {
             LeaderboardsScreen()

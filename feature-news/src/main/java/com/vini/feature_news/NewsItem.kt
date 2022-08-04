@@ -1,5 +1,7 @@
 package com.vini.feature_news
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -11,6 +13,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -25,9 +28,11 @@ import com.vini.core_model.model.news.Entire
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewsItem(newsData: Entire) {
+    val context = LocalContext.current
+    val intent = remember { Intent(Intent.ACTION_VIEW, Uri.parse("https://playruneterra.com/pt-br${newsData.url}")) }
     Card(
         onClick = {
-            //TODO: Click
+            context.startActivity(intent)
         }, modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 24.dp),

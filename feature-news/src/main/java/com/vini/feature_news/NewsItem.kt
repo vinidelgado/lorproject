@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -59,7 +60,7 @@ fun NewsItem(newsData: Entire) {
             Text(
                 text = newsData.title,
                 style = MaterialTheme.typography.headlineSmall,
-
+                fontWeight = FontWeight.W700,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp, top = 32.dp, bottom = 8.dp),

@@ -53,4 +53,5 @@ dependencies {
     implementation(Dependencies.appCompat)
     implementation(Dependencies.material)
     implementation(Dependencies.material3)
+    implementation ("com.airbnb.android:lottie-compose:5.0.3")
 }

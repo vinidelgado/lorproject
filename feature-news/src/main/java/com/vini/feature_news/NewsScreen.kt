@@ -1,7 +1,9 @@
 package com.vini.feature_news
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -17,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.vini.core_model.model.news.Entire
+import com.vini.core_ui.components.LorLoadingWheel
 import com.vini.core_ui.components.LorTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,6 +69,13 @@ fun NewsContent(viewModel: NewsViewModel = hiltViewModel()) {
 
     when (val uiState = metaDecksUIState) {
         is NewsState.Loading -> {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                LorLoadingWheel(modifier = Modifier.background(Color.Transparent))
+            }
 //            LeaderboardsLoading()
         }
         is NewsState.Error -> {
@@ -79,7 +89,6 @@ fun NewsContent(viewModel: NewsViewModel = hiltViewModel()) {
         }
     }
 }
-
 
 @Composable
 fun NewsList(news: List<Entire>) {

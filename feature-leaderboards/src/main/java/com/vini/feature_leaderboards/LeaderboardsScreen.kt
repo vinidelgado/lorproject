@@ -3,13 +3,12 @@ package com.vini.feature_leaderboards
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -113,11 +112,27 @@ fun LeaderboardsLoading() {
 
 @Composable
 fun LeaderboardsError(error: String) {
-    Text(
-        text = error,
-        color = Color.Red,
-        textAlign = TextAlign.Center,
-    )
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = error,
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.SemiBold,
+            textAlign = TextAlign.Center,
+            color = Color(0xFFF2F0F0)
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD13739))) {
+            Text(
+                text = "Tentar novamente",
+                style = MaterialTheme.typography.labelLarge,
+                fontWeight = FontWeight.W700,
+            )
+        }
+    }
 }
 
 @Composable
